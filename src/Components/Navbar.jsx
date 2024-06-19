@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from 'axios';
+import logo from "../assets/logo/logo.png";
 import {jwtDecode} from "jwt-decode";
 
 const Navbar = () => {
@@ -81,8 +82,9 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            {/* <img src={logo} alt="Tripify Logo" className="w-auto h-14" /> */}
-            <h1 class="text-2xl  text-center text-yellow-600">THE BOOK VAULT</h1>
+
+              <img src={logo} alt="The book Valut Logo" className="w-auto h-16  text-yellow-600" />
+
 
           </div>
           <div className="hidden md:block">
