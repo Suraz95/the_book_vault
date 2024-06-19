@@ -78,7 +78,12 @@ const Login = () => {
             <>
               {/* Logo */}
               <div className="flex justify-center mb-4">
-                <h2 className="text-2xl  text-center text-yellow-600">THE BOOK VAULT</h2>
+{/*                 <h2 className="text-2xl  text-center text-yellow-600">THE BOOK VAULT</h2> */}
+                <img
+                  src={logo} // Replace "your-logo.png" with the path to your logo
+                  alt="Logo"
+                  className="h-20"
+                />
               </div>
               {/* Login Heading */}
               <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Login</h2>
