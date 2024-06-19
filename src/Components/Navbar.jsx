@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import logo from "../assets/logo/logo.png";
 import {jwtDecode} from "jwt-decode";
 
 const Navbar = () => {
@@ -175,7 +174,7 @@ const Navbar = () => {
         <div className="md:hidden transition duration-300 ease-in-out">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <NavLink
-              to="/"
+              to="/home"
               className={({ isActive }) =>
                 isActive
                   ? "text-white"
@@ -183,36 +182,6 @@ const Navbar = () => {
               }
             >
               Home
-            </NavLink>
-            <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-white"
-                  : "text-gray-100 hover:bg-orange-500 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition duration-300"
-              }
-            >
-              About
-            </NavLink>
-            <NavLink
-              to="/services"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-white"
-                  : "text-gray-100 hover:bg-orange-500 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition duration-300"
-              }
-            >
-              Services
-            </NavLink>
-            <NavLink
-              to="/contact"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-white"
-                  : "text-gray-100 hover:bg-orange-500 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition duration-300"
-              }
-            >
-              Contact
             </NavLink>
             <NavLink
               to="/wishlist"
@@ -224,6 +193,18 @@ const Navbar = () => {
             >
               Wishlist {isLoggedIn && <span>({wishlistCount})</span>}
             </NavLink>
+           
+            <NavLink
+              to="/orders"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-white"
+                  : "text-gray-100 hover:bg-orange-500 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition duration-300"
+              }
+            >
+              My-orders
+            </NavLink>
+            
             {isLoggedIn ? (
               <button
                 onClick={handleLogout}
