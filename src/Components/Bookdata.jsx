@@ -118,6 +118,7 @@ const BookDashboard = () => {
                 <th className="py-2 px-4 border-b">Total Copies</th>
                 <th className="py-2 px-4 border-b">Available Copies</th>
                 <th className="py-2 px-4 border-b">Sold Copies</th>
+                <th className="py-2 px-4 border-b">Description</th>
                 <th className="py-2 px-4 border-b">Actions</th>
               </tr>
             </thead>
@@ -158,6 +159,7 @@ const BookDashboard = () => {
                         {book.copiesAvailable}
                       </td>
                       <td className="py-2 px-4 border-b">{book.soldCopies}</td>
+                      <td className="py-2 px-4 border-b">{book.description}</td>
                       <td className="py-2 px-4 border-b">
                         <button
                           onClick={() => handleEdit(book)}
