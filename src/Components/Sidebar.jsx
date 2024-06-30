@@ -2,20 +2,21 @@ import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { motion } from 'framer-motion';
-import { HomeIcon, BookOpenIcon, UsersIcon } from '@heroicons/react/24/outline'; // Import specific icons from Heroicons
+import { HomeIcon, BookOpenIcon, UsersIcon, ShoppingCartIcon } from '@heroicons/react/24/outline'; // Import specific icons from Heroicons
+import { ChartBarIcon } from '@heroicons/react/24/solid'; // Import the chart bar icon
 
 const Sidebar = () => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       await axios.post('https://books-api-lz0r.onrender.com/logout', {}, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      localStorage.removeItem("token");
+      sessionStorage.removeItem("token");
       navigate("/login");
     } catch (error) {
       console.error("Error logging out:", error);
@@ -29,8 +30,10 @@ const Sidebar = () => {
       animate={{ x: 0, opacity: 1 }}
       transition={{ type: 'spring', stiffness: 100, damping: 20 }}
       className="h-screen border border-black py-8 px-4 fixed md:w-64 w-48"
-      style={{background: "linear-gradient(to bottom, #243137, #000000)",
-        color: "#bd9f67",}}
+      style={{
+        background: "linear-gradient(to bottom, #243137, #000000)",
+        color: "#bd9f67",
+      }}
     >
       <nav>
         <ul>
@@ -40,11 +43,9 @@ const Sidebar = () => {
             transition={{ delay: 0.1, duration: 0.5 }}
             className="mb-4 flex items-center justify-center"
           >
-            <h1 className="text-3xl font-bold mb-2">Admin</h1>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 ml-2 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
+            <h1 className="text-3xl font-bold mb-2 text-6xl"  style={{ color: "#bd9f67", fontFamily: "Dancing Script, cursive" }}>Admin</h1>
           </motion.li>
+          {/* Navigation links */}
           <motion.li
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -57,6 +58,20 @@ const Sidebar = () => {
               activeclassname="bg-gray-700"
             >
               <HomeIcon className="w-6 h-6 mr-3" /> Dashboard
+            </NavLink>
+          </motion.li>
+          <motion.li
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.7, duration: 0.5 }}
+            className="mb-4"
+          >
+            <NavLink
+              to="/statistics"
+              className="block py-2 px-4 rounded hover:bg-gray-700 text-lg font-semibold ml-5 mb-3 flex items-center"
+              activeclassname="bg-gray-700"
+            >
+              <ChartBarIcon className="w-6 h-6 mr-3" /> Statistics
             </NavLink>
           </motion.li>
           <motion.li
@@ -105,11 +120,27 @@ const Sidebar = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.6, duration: 0.5 }}
+            className="mb-4"
+          >
+            <NavLink
+              to="/buyingmodules"
+              className="block py-2 px-4 rounded hover:bg-gray-700 text-lg font-semibold ml-5 mb-3 flex items-center"
+              activeclassname="bg-gray-700"
+            >
+              <ShoppingCartIcon className="w-6 h-6 mr-3" /> Buying Data
+            </NavLink>
+          </motion.li>
+         
+         
+          {/* Logout button */}
+          <motion.li
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.8, duration: 0.5 }}
           >
             <button
               onClick={handleLogout}
-              className="block py-2 px-4 rounded hover:bg-gray-700 text-lg font-semibold ml-5 flex items-center"
-              style={{ color: '#bd9f67' }}
+              className="block py-2 px-4 rounded hover:bg-red-700 bg-red-500 text-lg font-semibold ml-5 flex items-center text-white"
             >
               Logout
             </button>

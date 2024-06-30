@@ -6,6 +6,11 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        rose: {
+          500: '#FF007F',
+        },
+      },
       keyframes: {
         'fade-in': {
           '0%': { opacity: 0 },
@@ -24,4 +29,3 @@ export default {
   },
   plugins: [],
 }
-

@@ -22,7 +22,7 @@ const Signup = () => {
   const [passwordStrength, setPasswordStrength] = useState("");
   const [buttonLabel, setButtonLabel] = useState("Generate OTP");
   const [showModal, setShowModal] = useState(false);
-  const [isVerified, setIsVerified] = useState(false);
+  const [isVerified, setIsVerified] = useState(true);
   const navigate = useNavigate();
 
   const checkPasswordStrength = (password) => {
@@ -63,29 +63,29 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setError("");
-  
+
     if (!/\S+@\S+\.\S+/.test(email)) {
       setError("Please enter a valid email address.");
       return;
     }
-  
+
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
       return;
     }
-  
+
     if (phone.length < 10) {
       setError("Please enter a valid phone number.");
       return;
     }
-  
+
     if (!checkPasswordStrength(password)) {
       setError(
         "Password should contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character."
       );
       return;
     }
-  
+
     axios
       .post("https://books-api-lz0r.onrender.com/signup", {
         name,
@@ -96,7 +96,10 @@ const Signup = () => {
         userType,
       })
       .then((result) => {
-        const successMessage = userType === 'admin' ? 'Admin registered successfully!' : 'Customer registered successfully!';
+        const successMessage =
+          userType === "admin"
+            ? "Admin registered successfully!"
+            : "Customer registered successfully!";
         toast.success(successMessage);
         setTimeout(() => {
           navigate("/login");
@@ -107,7 +110,6 @@ const Signup = () => {
         setError("Failed to create account. Please try again.");
       });
   };
-  
 
   const generateOtp = () => {
     if (!/\S+@\S+\.\S+/.test(email)) {
@@ -239,7 +241,9 @@ const Signup = () => {
                 <button
                   type="button"
                   className={`w-full py-2 rounded focus:outline-none focus:ring transition duration-300 ${
-                    isVerified ? "bg-green-500" : "bg-blue-500 hover:bg-blue-600"
+                    isVerified
+                      ? "bg-green-500"
+                      : "bg-blue-500 hover:bg-blue-600"
                   } text-white`}
                   onClick={generateOtp}
                 >
@@ -307,14 +311,20 @@ const Signup = () => {
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200 transition duration-300"
                 value={password}
                 onChange={handlePasswordChange}
+                onPaste={()=>{return}}
                 required
               />
               <div className="mt-1 flex items-center justify-between">
-                <span className="text-sm px-2 text-red-700">{passwordStrength}</span>
+                <span className="text-sm px-2 text-red-700">
+                  {passwordStrength}
+                </span>
               </div>
             </div>
             <div className="mb-4">
-              <label htmlFor="confirmPassword" className="block text-gray-700 mb-2">
+              <label
+                htmlFor="confirmPassword"
+                className="block text-gray-700 mb-2"
+              >
                 Confirm Password
               </label>
               <input
@@ -323,6 +333,7 @@ const Signup = () => {
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200 transition duration-300"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+                onPaste={()=>{return}}
                 required
               />
             </div>

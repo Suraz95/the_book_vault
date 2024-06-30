@@ -9,7 +9,7 @@ const Wishlist = () => {
 
   const fetchWishlist = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await axios.get('https://books-api-lz0r.onrender.com/wishlist', {
         headers: {
           Authorization: `Bearer ${token}`
@@ -80,7 +80,7 @@ const Wishlist = () => {
               <BookCard
                 key={index}
                 book={book}
-                token={localStorage.getItem('token')}
+                token={sessionStorage.getItem('token')}
                 isExpanded={expandedBook === book}
                 onExpand={() => handleExpand(book)}
                 onRemove={handleRemoveFromWishlist} // Pass the onRemove prop

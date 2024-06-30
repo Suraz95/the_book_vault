@@ -15,9 +15,9 @@ const BookDashboard = () => {
   const fetchBooks = () => {
     setTimeout(() => {
       axios
-        .get("http://localhost:8000/books", {
+        .get("https://books-api-lz0r.onrender.com/books", {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },
         })
         .then((response) => {
@@ -35,9 +35,9 @@ const BookDashboard = () => {
   const handleDelete = (bookId) => {
     if (window.confirm("Are you sure you want to delete this book?")) {
       axios
-        .delete(`http://localhost:8000/books/${bookId}`, {
+        .delete(`https://books-api-lz0r.onrender.com/books/${bookId}`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },
         })
         .then(() => {
@@ -65,9 +65,9 @@ const BookDashboard = () => {
 
   const handleSaveEdit = (updatedBook) => {
     axios
-      .put(`http://localhost:8000/books/${updatedBook._id}`, updatedBook, {
+      .put(`https://books-api-lz0r.onrender.com/books/${updatedBook._id}`, updatedBook, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
       })
       .then(() => {

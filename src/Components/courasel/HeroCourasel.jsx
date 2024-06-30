@@ -28,7 +28,7 @@ const HeroCarousel = ({ slides }) => {
   };
 
   return (
-    <div className="relative w-full h-[60vh] md:h-[70vh]">
+    <div className="relative w-full h-[50vh] md:h-[70vh]">
       <div className="absolute inset-0">
         <img
           src={slides[currentIndex].image}

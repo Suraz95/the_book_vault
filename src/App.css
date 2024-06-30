@@ -1,4 +1,9 @@
 /* Modal styles */
+/* index.css or App.css */
+body {
+  cursor: none;
+}
+
 .modal {
     position: absolute;
     top: 50%;
