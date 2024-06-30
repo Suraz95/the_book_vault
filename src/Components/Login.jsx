@@ -79,7 +79,12 @@ const Login = () => {
           ) : (
             <>
               {/* Logo */}
+<<<<<<< HEAD
               <div className="flex justify-center">
+=======
+              <div className="flex justify-center mb-4">
+{/*                 <h2 className="text-2xl  text-center text-yellow-600">THE BOOK VAULT</h2> */}
+>>>>>>> 4629aa50272aea782e1bb385fd21b7ab011309d2
                 <img
                   src={logo} // Replace "your-logo.png" with the path to your logo
                   alt="Logo"
