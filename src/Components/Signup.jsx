@@ -22,7 +22,7 @@ const Signup = () => {
   const [passwordStrength, setPasswordStrength] = useState("");
   const [buttonLabel, setButtonLabel] = useState("Generate OTP");
   const [showModal, setShowModal] = useState(false);
-  const [isVerified, setIsVerified] = useState(true);
+  const [isVerified, setIsVerified] = useState(false);
   const navigate = useNavigate();
 
   const checkPasswordStrength = (password) => {
