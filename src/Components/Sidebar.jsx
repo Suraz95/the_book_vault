@@ -11,7 +11,7 @@ const Sidebar = () => {
   const handleLogout = async () => {
     try {
       const token = sessionStorage.getItem('token');
-      await axios.post('http://localhost:8000/logout', {}, {
+      await axios.post('https://books-api-lz0r.onrender.com/logout', {}, {
         headers: {
           Authorization: `Bearer ${token}`
         }

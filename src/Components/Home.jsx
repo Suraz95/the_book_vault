@@ -23,7 +23,7 @@ const App = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/books");
+        const response = await axios.get("https://books-api-lz0r.onrender.com/books");
         const publishers = response.data;
 
         // Flatten the books array from all publishers and include publication and publisher details in each book object
@@ -83,7 +83,7 @@ const App = () => {
       if (!token) return;
 
       try {
-        const response = await axios.get("http://localhost:8000/user/token", {
+        const response = await axios.get("https://books-api-lz0r.onrender.com/user/token", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const { userId } = response.data;

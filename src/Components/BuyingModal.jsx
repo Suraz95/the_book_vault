@@ -14,7 +14,7 @@ const BuyingModuleDashboard = () => {
   const fetchBuyingModules = () => {
     setTimeout(() => {
       axios
-        .get("http://localhost:8000/buyingmodules", {
+        .get("https://books-api-lz0r.onrender.com/buyingmodules", {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },

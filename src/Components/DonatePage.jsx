@@ -25,7 +25,7 @@ function ContactUs() {
   const handleSend = (e) => {
     e.preventDefault();
     // Replace with your actual API endpoint
-    axios.post('http://localhost:8000/send-message', formData)
+    axios.post('https://books-api-lz0r.onrender.com/send-message', formData)
       .then(response => {
         if (response.data.success) {
           setMessageSent(true);
