@@ -37,7 +37,7 @@ const BookDashboard = () => {
       axios
         .delete(`https://books-api-lz0r.onrender.com/books/${bookId}`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },
         })
         .then(() => {
