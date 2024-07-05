@@ -34,7 +34,7 @@ const BookCard = ({ book, token, isExpanded, onExpand, onRemove }) => {
       if (!token) return;
 
       try {
-        const response = await axios.get("https://books-api-lz0r.onrender.com/wishlist", {
+        const response = await axios.get("http://localhost:8000/wishlist", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -62,7 +62,7 @@ const BookCard = ({ book, token, isExpanded, onExpand, onRemove }) => {
     try {
       if (!isFavorite) {
         await axios.put(
-          "https://books-api-lz0r.onrender.com/wishlist",
+          "http://localhost:8000/wishlist",
           { bookTitle: book.title },
           {
             headers: {
@@ -71,7 +71,7 @@ const BookCard = ({ book, token, isExpanded, onExpand, onRemove }) => {
           }
         );
       } else {
-        await axios.delete("https://books-api-lz0r.onrender.com/wishlist", {
+        await axios.delete("http://localhost:8000/wishlist", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -99,7 +99,7 @@ const BookCard = ({ book, token, isExpanded, onExpand, onRemove }) => {
 
     try {
       const response = await axios.get(
-        `https://books-api-lz0r.onrender.com/user/address/${userEmail}`,
+        `http://localhost:8000/user/address/${userEmail}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -135,7 +135,7 @@ const BookCard = ({ book, token, isExpanded, onExpand, onRemove }) => {
 
       // Assuming `book` is defined elsewhere in your component
       const response = await axios.post(
-        "https://books-api-lz0r.onrender.com/purchase",
+        "http://localhost:8000/purchase",
         {
           bookTitle: book.title, // Ensure `book` is correctly accessed
           quantity: NumberofItems, // Example, adjust as needed
@@ -194,207 +194,206 @@ const BookCard = ({ book, token, isExpanded, onExpand, onRemove }) => {
 
   return (
     <>
-      <ToastContainer />
-      <motion.div
-        className={`max-w-xs m-6 rounded overflow-hidden shadow-lg bg-white ${
-          isExpanded ? "w-full flex" : "w-full"
-        }`}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
-        onMouseMove={(event) => {
-          const rect = event.currentTarget.getBoundingClientRect();
-          const offsetX = event.clientX - rect.left;
-          const offsetY = event.clientY - rect.top;
-          const halfWidth = rect.width / 2;
-          const halfHeight = rect.height / 2;
-          const xMove = (offsetX - halfWidth) / halfWidth;
-          const yMove = (offsetY - halfHeight) / halfHeight;
-          x.set(xMove * 50);
-          y.set(yMove * 50);
-        }}
-        onMouseLeave={() => {
-          x.set(0);
-          y.set(0);
-        }}
-        style={{ perspective: 1000, transformStyle: "preserve-3d" }}
+  <ToastContainer />
+  <motion.div
+    className={`max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl m-6 rounded overflow-hidden shadow-lg bg-white ${
+      isExpanded ? "flex" : ""
+    }`}
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.3 }}
+    onMouseMove={(event) => {
+      const rect = event.currentTarget.getBoundingClientRect();
+      const offsetX = event.clientX - rect.left;
+      const offsetY = event.clientY - rect.top;
+      const halfWidth = rect.width / 2;
+      const halfHeight = rect.height / 2;
+      const xMove = (offsetX - halfWidth) / halfWidth;
+      const yMove = (offsetY - halfHeight) / halfHeight;
+      x.set(xMove * 50);
+      y.set(yMove * 50);
+    }}
+    onMouseLeave={() => {
+      x.set(0);
+      y.set(0);
+    }}
+    style={{ perspective: 1000, transformStyle: "preserve-3d" }}
+  >
+    <motion.div style={{ rotateX, rotateY }}>
+      <div
+        className={`relative ${isExpanded ? "w-1/3" : "w-full"}`}
+        onClick={onExpand}
       >
-        <motion.div style={{ rotateX, rotateY }}>
-          <div
-            className={`relative ${isExpanded ? "w-1/3" : "w-full"}`}
-            onClick={onExpand}
-          >
-            <img
-              className="w-full h-48 z-10 object-cover"
-              src={book.imageUrl}
-              alt={book.title}
-            />
-          </div>
-          <div className={`px-4 py-2 ${isExpanded ? "w-2/3" : "w-full"}`}>
-            <div className="font-bold text-lg mb-1">{book.title}</div>
-            <p className="text-gray-700 text-sm">Author: {book.author}</p>
+        <img
+          className="w-full h-48 z-10 object-cover"
+          src={book.imageUrl}
+          alt={book.title}
+        />
+      </div>
+      <div className={`px-4 py-2 ${isExpanded ? "w-2/3" : "w-full"}`}>
+        <div className="font-bold text-lg mb-1">{book.title}</div>
+        <p className="text-gray-700 text-sm">Author: {book.author}</p>
+        <p className="text-gray-700 text-sm mt-1">
+          Price: ${book.price.toFixed(2)}
+        </p>
+        {isExpanded && (
+          <>
             <p className="text-gray-700 text-sm mt-1">
-              Price: ${book.price.toFixed(2)}
+              Description: {book.description}
             </p>
-            {isExpanded && (
-              <>
-                <p className="text-gray-700 text-sm mt-1">
-                  Description: {book.description}
-                </p>
-                <p className="text-gray-700 text-sm">Genre: {book.genre}</p>
-                <p className="text-gray-700 text-sm">
-                  Publisher: {book.publisherName}
-                </p>
-                <p className="text-gray-700 text-sm mt-1">
-                  Copies Available: {copiesAvailable}
-                </p>
-                <button
-                  onClick={onExpand}
-                  className="ml-auto text-red-500 focus:outline-none text-sm"
-                >
-                  Show Less
-                </button>
-              </>
-            )}
-            {!isExpanded && (
-              <div className="flex items-center mt-2">
-                <button
-                  onClick={handleFavoriteClick}
-                  className={`mr-2 ${
-                    isFavorite ? "text-red-500" : "text-gray-500"
-                  }`}
-                >
-                  <FaHeart className="h-5 w-5" />
-                </button>
-                <button
-                  onClick={handleBuyNowClick}
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-sm"
-                >
-                  Buy Now
-                </button>
-                <button
-                  onClick={onExpand}
-                  className="ml-auto text-blue-500 focus:outline-none text-sm"
-                >
-                  Show More
-                </button>
-              </div>
-            )}
+            <p className="text-gray-700 text-sm">Genre: {book.genre}</p>
+            <p className="text-gray-700 text-sm">
+              Publisher: {book.publisherName}
+            </p>
+            <p className="text-gray-700 text-sm mt-1">
+              Copies Available: {copiesAvailable}
+            </p>
+            <button
+              onClick={onExpand}
+              className="ml-auto text-red-500 focus:outline-none text-sm"
+            >
+              Show Less
+            </button>
+          </>
+        )}
+        {!isExpanded && (
+          <div className="flex items-center mt-2">
+            <button
+              onClick={handleFavoriteClick}
+              className={`mr-2 ${
+                isFavorite ? "text-red-500" : "text-gray-500"
+              }`}
+            >
+              <FaHeart className="h-5 w-5" />
+            </button>
+            <button
+              onClick={handleBuyNowClick}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-sm"
+            >
+              Buy Now
+            </button>
+            <button
+              onClick={onExpand}
+              className="ml-auto text-blue-500 focus:outline-none text-sm"
+            >
+              Show More
+            </button>
           </div>
-        </motion.div>
-      </motion.div>
+        )}
+      </div>
+    </motion.div>
+  </motion.div>
 
-      {isModalOpen && !isAddressFormOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
-            <h2 className="text-2xl font-bold mb-4 text-center">
-              Confirm Purchase
-            </h2>
-            <p className="text-gray-700 text-base mb-4">
-              Are you sure you want to buy "{book.title}" for $
-              {book.price.toFixed(2)}?
+  {isModalOpen && !isAddressFormOpen && (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+      <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
+        <h2 className="text-2xl font-bold mb-4 text-center">
+          Confirm Purchase
+        </h2>
+        <p className="text-gray-700 text-base mb-4">
+          Are you sure you want to buy "{book.title}" for $
+          {book.price.toFixed(2)}?
+        </p>
+        <div className="mb-4">
+          <label
+            htmlFor="quantity"
+            className="text-gray-700 text-base block"
+          >
+            Quantity:
+          </label>
+          <input
+            type="number"
+            id="quantity"
+            name="quantity"
+            value={NumberofItems}
+            onChange={(e) => setNumberofItems(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded text-base focus:outline-none focus:border-blue-500"
+          />
+        </div>
+        <p>Sorry for the inconvenience. We are having Cash-on-delivery..</p>
+        {addresses.length > 0 && (
+          <div className="text-gray-700 text-base mb-4">
+            <p className="mb-2">
+              <strong>Select Address:</strong>
             </p>
-            <div className="mb-4">
+            {addresses.map((address, index) => (
               <label
-                htmlFor="quantity"
-                className="text-gray-700 text-base block"
+                key={index}
+                htmlFor={`address-${index}`}
+                className="flex items-center mb-2"
               >
-                Quantity:
+                <input
+                  type="radio"
+                  id={`address-${index}`}
+                  name="address"
+                  value={index}
+                  checked={selectedAddress === address}
+                  onChange={() => setSelectedAddress(address)}
+                  className="mr-2"
+                />
+                <div className="ml-2">
+                  <p className="font-medium">{address.name}</p>
+                  <p>
+                    {address.locality}, {address.landmark}
+                  </p>
+                  <p>
+                    {address.city}, {address.state} - {address.pincode}
+                  </p>
+                  <p>Phone: {address.phone}</p>
+                </div>
               </label>
-              <input
-                type="number"
-                id="quantity"
-                name="quantity"
-                value={NumberofItems}
-                onChange={(e) => setNumberofItems(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded text-base focus:outline-none focus:border-blue-500"
-              />
-            </div>
-            <p>Sorry for the inconvience We are having Cash-on-delivery..</p>
-            {addresses.length > 0 && (
-              <div className="text-gray-700 text-base mb-4">
-                <p className="mb-2">
-                  <strong>Select Address:</strong>
-                </p>
-                {addresses.map((address, index) => (
-                  <label
-                    key={index}
-                    htmlFor={`address-${index}`}
-                    className="flex items-center mb-2"
-                  >
-                    <input
-                      type="radio"
-                      id={`address-${index}`}
-                      name="address"
-                      value={index}
-                      checked={selectedAddress === address}
-                      onChange={() => setSelectedAddress(address)}
-                      className="mr-2"
-                    />
-                    <div className="ml-2">
-                      <p className="font-medium">{address.name}</p>
-                      <p>
-                        {address.locality}, {address.landmark}
-                      </p>
-                      <p>
-                        {address.city}, {address.state} - {address.pincode}
-                      </p>
-                      <p>Phone: {address.phone}</p>
-                    </div>
-                  </label>
-                ))}
-              </div>
-            )}
-            <div className="flex justify-center">
-              <button
-                onClick={() => handleBuyConfirm()}
-                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2 text-base"
-              >
-                Confirm Purchase
-              </button>
-              <button
-                onClick={() => setIsAddressFormOpen(true)}
-                className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 text-base"
-              >
-                Add Another Address
-              </button>
-              <button
-                onClick={handleCloseModal}
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded text-base"
-              >
-                Cancel
-              </button>
-            </div>
+            ))}
+          </div>
+        )}
+        <div className="flex justify-center">
+          <button
+            onClick={() => handleBuyConfirm()}
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2 text-base"
+          >
+            Confirm Purchase
+          </button>
+          <button
+            onClick={() => setIsAddressFormOpen(true)}
+            className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 text-base"
+          >
+            Add Another Address
+          </button>
+          <button
+            onClick={handleCloseModal}
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded text-base"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  )}
+  {isAddressFormOpen && (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+      <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
+        <AddressForm
+          userEmail={userEmail}
+          onAddressSubmit={handleAddressFormSubmit}
+          onCancel={() => setIsAddressFormOpen(false)}
+        />
+      </div>
+    </div>
+  )}
+  {showSuccessMessage && (
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
+      <div className="relative w-auto max-w-md mx-auto my-6">
+        <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+          <div className="p-5 border-b border-solid border-gray-300 text-center">
+            <FaCheckCircle className="text-green-500 mx-auto" size={64} />
+            <h3 className="text-2xl font-semibold mt-4">
+              Purchase Successful!
+            </h3>
           </div>
         </div>
-      )}
-      {isAddressFormOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
-            <AddressForm
-              userEmail={userEmail}
-              onAddressSubmit={handleAddressFormSubmit}
-              onCancel={() => setIsAddressFormOpen(false)}
-            />
-          </div>
-        </div>
-      )}
-      {showSuccessMessage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
-          <div className="relative w-auto max-w-md mx-auto my-6">
-            <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-              <div className="p-5 border-b border-solid border-gray-300 text-center">
-                <FaCheckCircle className="text-green-500 mx-auto" size={64} />
-                <h3 className="text-2xl font-semibold mt-4">
-                  Purchase Successful!
-                </h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </>
-  );
+      </div>
+    </div>
+  )}
+</>  );
 };
 
 export default BookCard;

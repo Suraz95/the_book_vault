@@ -15,9 +15,9 @@ const BookDashboard = () => {
   const fetchBooks = () => {
     setTimeout(() => {
       axios
-        .get("https://books-api-lz0r.onrender.com/books", {
+        .get("http://localhost:8000/books", {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         })
         .then((response) => {
@@ -35,9 +35,9 @@ const BookDashboard = () => {
   const handleDelete = (bookId) => {
     if (window.confirm("Are you sure you want to delete this book?")) {
       axios
-        .delete(`https://books-api-lz0r.onrender.com/books/${bookId}`, {
+        .delete(`http://localhost:8000/books/${bookId}`, {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         })
         .then(() => {
@@ -46,18 +46,19 @@ const BookDashboard = () => {
               ...publisher,
               publications: publisher.publications.map((publication) => ({
                 ...publication,
-                publishedBooks: publication.publishedBooks.filter((book) => book._id !== bookId),
+                publishedBooks: publication.publishedBooks.filter(
+                  (book) => book._id !== bookId
+                ),
               })),
             }))
           );
         })
         .catch((error) => {
           console.error("Error deleting book:", error);
-          setError("Failed to delete book. Please try again later."); // Update error state or display a notification
+          setError("Failed to delete book. Please try again later.");
         });
     }
   };
-  
 
   const handleEdit = (book) => {
     setEditBook(book);
@@ -65,9 +66,9 @@ const BookDashboard = () => {
 
   const handleSaveEdit = (updatedBook) => {
     axios
-      .put(`https://books-api-lz0r.onrender.com/books/${updatedBook._id}`, updatedBook, {
+      .put(`http://localhost:8000/books/${updatedBook._id}`, updatedBook, {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then(() => {
@@ -85,8 +86,29 @@ const BookDashboard = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="loader animate-bounce"></div>
+      <div className="flex items-center animate-bouce justify-center min-h-screen">
+        <div className="loader">
+          <div className="box box-1">
+            <div className="side-left"></div>
+            <div className="side-right"></div>
+            <div className="side-top"></div>
+          </div>
+          <div className="box box-2">
+            <div className="side-left"></div>
+            <div className="side-right"></div>
+            <div className="side-top"></div>
+          </div>
+          <div className="box box-3">
+            <div className="side-left"></div>
+            <div className="side-right"></div>
+            <div className="side-top"></div>
+          </div>
+          <div className="box box-4">
+            <div className="side-left"></div>
+            <div className="side-right"></div>
+            <div className="side-top"></div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -103,9 +125,7 @@ const BookDashboard = () => {
     <div className="flex h-screen overflow-hidden">
       <Sidebar />
       <div className="flex-1 flex flex-col overflow-y-auto ml-48 md:ml-64 p-8 bg-gray-100">
-        <h1 className="text-4xl font-bold text-gray-800 mb-6">
-          Book Dashboard
-        </h1>
+        <h1 className="text-4xl font-bold text-gray-800 mb-6">Book Dashboard</h1>
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white border border-gray-300">
             <thead>
@@ -118,7 +138,6 @@ const BookDashboard = () => {
                 <th className="py-2 px-4 border-b">Total Copies</th>
                 <th className="py-2 px-4 border-b">Available Copies</th>
                 <th className="py-2 px-4 border-b">Sold Copies</th>
-              
                 <th className="py-2 px-4 border-b">Actions</th>
               </tr>
             </thead>
@@ -159,7 +178,6 @@ const BookDashboard = () => {
                         {book.copiesAvailable}
                       </td>
                       <td className="py-2 px-4 border-b">{book.soldCopies}</td>
-                   
                       <td className="py-2 px-4 border-b">
                         <button
                           onClick={() => handleEdit(book)}

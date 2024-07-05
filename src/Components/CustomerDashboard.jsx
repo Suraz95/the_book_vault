@@ -17,7 +17,7 @@ const CustomerDashboard = () => {
     const fetchCustomers = async () => {
       try {
         const token = sessionStorage.getItem("token");
-        const response = await axios.get("https://books-api-lz0r.onrender.com/customers", {
+        const response = await axios.get("http://localhost:8000/customers", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -59,7 +59,7 @@ const CustomerDashboard = () => {
     try {
       const token = sessionStorage.getItem("token");
       await axios.put(
-        `https://books-api-lz0r.onrender.com/customers/${editingCustomerId}`,
+        `http://localhost:8000/customers/${editingCustomerId}`,
         editedCustomer,
         {
           headers: {
@@ -88,7 +88,7 @@ const CustomerDashboard = () => {
   const handleDelete = async (id) => {
     try {
       const token = sessionStorage.getItem("token");
-      await axios.delete(`https://books-api-lz0r.onrender.com/customers/${id}`, {
+      await axios.delete(`http://localhost:8000/customers/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

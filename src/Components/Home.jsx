@@ -9,6 +9,8 @@ import Navbar from "./Navbar";
 import BookCard from "./BookCard";
 import BookDonationPage from "./DonatePage";
 import Footer from "./Footer";
+import Reviews from "./Reviews"
+import ImageGallery from "./Imagegallery"
 
 const App = () => {
   const [booksByGenre, setBooksByGenre] = useState({});
@@ -21,7 +23,7 @@ const App = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get("https://books-api-lz0r.onrender.com/books");
+        const response = await axios.get("http://localhost:8000/books");
         const publishers = response.data;
 
         // Flatten the books array from all publishers and include publication and publisher details in each book object
@@ -81,7 +83,7 @@ const App = () => {
       if (!token) return;
 
       try {
-        const response = await axios.get("https://books-api-lz0r.onrender.com/user/token", {
+        const response = await axios.get("http://localhost:8000/user/token", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const { userId } = response.data;
@@ -305,19 +307,17 @@ const App = () => {
           )}
         </div>
       </div>
-      <motion.h1
+     <Reviews/>
+     <motion.h1
         initial={{ y: -100, scale: 0.8, opacity: 0 }}
         animate={{ y: 0, scale: 1, opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5, type: "spring", stiffness: 120 }}
         style={{ color: "#bd9f67", fontFamily: "Dancing Script, cursive" }}
-        className="text-6xl font-extrabold text-gray-900 mb-8 text-center"
+        className="text-8xl font-extrabold text-gray-900 mb-8 text-center"
       >
-        Donate Your Books & Spread Knowledge
+        Our Authors Gallery
       </motion.h1>
-      <p className="mb-6 text-centre text-justify text-xl font-semibold p-10 text-gray-700"
-       style={{ fontFamily: " cursive" }}>
-          Books are a gateway to knowledge and imagination, but not everyone has access to them. By donating books, you can make a significant difference in someone's life. Your old books, whether they are children's stories, educational textbooks, or novels, can be a valuable resource for those in need. Donating books helps promote literacy, education, and a love for reading in your community. It's a simple act of kindness that can have a lasting impact. Join us in spreading the joy of reading by donating your books today!
-        </p>
+     <ImageGallery/>
 <BookDonationPage/>
       <Footer />
     </>

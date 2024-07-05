@@ -10,7 +10,7 @@ const Wishlist = () => {
   const fetchWishlist = async () => {
     try {
       const token = sessionStorage.getItem('token');
-      const response = await axios.get('https://books-api-lz0r.onrender.com/wishlist', {
+      const response = await axios.get('http://localhost:8000/wishlist', {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -24,7 +24,7 @@ const Wishlist = () => {
 
   const fetchBooksFromDatabase = async () => {
     try {
-      const response = await axios.get('https://books-api-lz0r.onrender.com/books');
+      const response = await axios.get('http://localhost:8000/books');
       const publishers = response.data;
 
       // Flatten the books array from all publishers and publications and include publisher name and publication details in each book object

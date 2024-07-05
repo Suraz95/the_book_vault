@@ -31,7 +31,7 @@ const Navbar = () => {
     const token = sessionStorage.getItem("token");
     if (token) {
       try {
-        const response = await axios.get('https://books-api-lz0r.onrender.com/wishlist', {
+        const response = await axios.get('http://localhost:8000/wishlist', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -75,7 +75,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       const token = sessionStorage.getItem('token');
-      await axios.post('https://books-api-lz0r.onrender.com/logout', {}, {
+      await axios.post('http://localhost:8000/logout', {}, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -96,8 +96,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            {/* <img src={logo} alt="Tripify Logo" className="w-auto h-14" /> */}
-            <h1 class="text-2xl  text-center text-yellow-600">THE BOOK VAULT</h1>
+            <h1 className="text-2xl  text-center text-yellow-600">THE BOOK VAULT</h1>
 
           </div>
           <div className="hidden md:block">
