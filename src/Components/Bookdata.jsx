@@ -68,7 +68,7 @@ const BookDashboard = () => {
     axios
       .put(`https://books-api-lz0r.onrender.com/books/${updatedBook._id}`, updatedBook, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
       })
       .then(() => {
