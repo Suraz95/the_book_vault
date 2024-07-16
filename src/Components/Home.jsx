@@ -15,6 +15,7 @@ import ImageGallery from "./Imagegallery"
 const App = () => {
   const [booksByGenre, setBooksByGenre] = useState({});
   const [userId, setUserId] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [token, setToken] = useState(sessionStorage.getItem("token"));
   const [expandedBook, setExpandedBook] = useState(null);
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
@@ -35,6 +36,7 @@ const App = () => {
             console.warn(
               `Publisher ${publisher.publisherName} has no publications or publications is not an array`
             );
+            setLoading(false);
             return acc;
           }
 
@@ -47,6 +49,7 @@ const App = () => {
                 console.warn(
                   `Publication by ${publication.author} in genre ${publication.genre} has no publishedBooks or publishedBooks is not an array`
                 );
+                  setLoading(false);
                 return pubAcc;
               }
 
@@ -58,6 +61,7 @@ const App = () => {
                   publisherName: publisher.publisherName,
                 })
               );
+                setLoading(false);
               return pubAcc.concat(booksWithDetails);
             }, [])
           );
@@ -69,9 +73,10 @@ const App = () => {
             acc[genre] = [];
           }
           acc[genre].push(book);
+          
           return acc;
         }, {});
-
+          setLoading(false);
         setBooksByGenre(groupedBooks);
         setFilteredBooks(books); // Set filtered books to all books initially
       } catch (error) {
@@ -118,7 +123,13 @@ const App = () => {
       setFilteredBooks(filtered);
     }
   };
-
+if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="loader animate-bounce"></div>
+      </div>
+    );
+  }
   const slides = [
     {
       image: "https://wallpaperaccess.com/full/464334.jpg",
