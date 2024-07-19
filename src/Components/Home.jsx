@@ -125,9 +125,9 @@ const App = () => {
   };
 if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="loader animate-bounce"></div>
-      </div>
+       <div className="flex items-center justify-center">
+              <div className="loader animate-bounce"></div>
+            </div>
     );
   }
   const slides = [
