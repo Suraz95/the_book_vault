@@ -101,4 +101,64 @@ body {
       transform: scale(1.2, 1);
     }
   }
- 
+ /* Colorful Driver.js Theme */
+.driver-popover.driverjs-theme {
+  background: linear-gradient(to bottom right, #ad5389, #3c1053); /* Match navbar gradient */
+  color: #bd9f67; /* Gold text color */
+  border-radius: 8px; /* Smooth rounded edges */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Moderate shadow for depth */
+}
+
+.driver-popover.driverjs-theme .driver-popover-title {
+  font-size: 20px; /* Larger, bold title */
+  font-weight: bold;
+  color: #ffffff; /* White title for contrast */
+  margin-bottom: 10px;
+}
+
+.driver-popover.driverjs-theme .driver-popover-description,
+.driver-popover.driverjs-theme .driver-popover-progress-text {
+  font-size: 15px; /* Slightly larger description text */
+  color: #bd9f67; /* Gold text for description */
+  line-height: 1.6;
+}
+
+.driver-popover.driverjs-theme button {
+  flex: 1;
+  margin: 5px;
+  text-align: center;
+  background-color: #3c1053; /* Dark purple background */
+  color: #bd9f67; /* Gold text */
+  border: 2px solid #bd9f67; /* Gold border */
+  font-size: 14px;
+  padding: 6px 12px; /* Comfortable button padding */
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.driver-popover.driverjs-theme button:hover {
+  background-color: #bd9f67; /* Gold hover */
+  color: #3c1053; /* Dark purple text on hover */
+}
+
+.driver-popover.driverjs-theme .driver-popover-navigation-btns {
+  justify-content: space-between;
+  gap: 8px; /* Space between navigation buttons */
+}
+
+.driver-popover.driverjs-theme .driver-popover-close-btn {
+  color: #ffffff; /* White for close button */
+  transition: color 0.3s ease;
+}
+
+.driver-popover.driverjs-theme .driver-popover-close-btn:hover {
+  color: #bd9f67; /* Gold on hover */
+}
+
+.driver-popover.driverjs-theme .driver-popover-arrow-side-left.driver-popover-arrow,
+.driver-popover.driverjs-theme .driver-popover-arrow-side-right.driver-popover-arrow,
+.driver-popover.driverjs-theme .driver-popover-arrow-side-top.driver-popover-arrow,
+.driver-popover.driverjs-theme .driver-popover-arrow-side-bottom.driver-popover-arrow {
+  border-color: #3c1053; /* Dark purple for the arrow border */
+}
