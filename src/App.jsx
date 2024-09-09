@@ -11,7 +11,6 @@ import Wishlist from "./Components/Wishlist";
 import CustomerDashboard from "./Components/CustomerDashboard";
 import Bookdata from "./Components/Bookdata";
 import Orders from "./Components/MyOrders";
-import DotCursor from "./Components/DotCursor.jsx";
 import BuyingModuleDashboard from "./Components/BuyingModal.jsx";
 import Navbar from "./Components/Navbar";
 import { WishlistProvider } from "./Components/WishlistContext.jsx";
@@ -21,7 +20,6 @@ const App = () => {
   return (
     <WishlistProvider>
       <Router>
-{/*         <DotCursor /> */}
         <div className="flex flex-col min-h-screen">
           <div className="flex-grow">
             <Routes>
