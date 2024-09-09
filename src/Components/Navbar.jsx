@@ -102,6 +102,7 @@ const Navbar = () => {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               <NavLink
+                id="home"
                 to="/home"
                 className={({ isActive }) =>
                   isActive
@@ -113,6 +114,7 @@ const Navbar = () => {
               </NavLink>
               <NavLink
                 to="/wishlist"
+                id="wishlist"
                 className={({ isActive }) =>
                   isActive
                     ? "text-white"
@@ -123,6 +125,7 @@ const Navbar = () => {
               </NavLink>
               <NavLink
                 to="/orders"
+                id=""orders
                 className={({ isActive }) =>
                   isActive
                     ? "text-white"
