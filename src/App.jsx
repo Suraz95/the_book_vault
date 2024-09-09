@@ -21,7 +21,7 @@ const App = () => {
   return (
     <WishlistProvider>
       <Router>
-        <DotCursor />
+{/*         <DotCursor /> */}
         <div className="flex flex-col min-h-screen">
           <div className="flex-grow">
             <Routes>
