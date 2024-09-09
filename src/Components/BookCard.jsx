@@ -259,6 +259,7 @@ const BookCard = ({ book, token, isExpanded, onExpand, onRemove }) => {
         {!isExpanded && (
           <div className="flex items-center mt-2">
             <button
+              id="wishlistBtn"
               onClick={handleFavoriteClick}
               className={`mr-2 ${
                 isFavorite ? "text-red-500" : "text-gray-500"
@@ -267,6 +268,7 @@ const BookCard = ({ book, token, isExpanded, onExpand, onRemove }) => {
               <FaHeart className="h-5 w-5" />
             </button>
             <button
+              id="BuyBtn"
               onClick={handleBuyNowClick}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-sm"
             >
