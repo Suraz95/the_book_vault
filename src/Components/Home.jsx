@@ -2,18 +2,21 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { motion } from "framer-motion";
+import { motion, steps } from "framer-motion";
 import { FaSearch } from "react-icons/fa"; // Import the search icon
 import HeroCarousel from "./courasel/HeroCourasel";
 import Navbar from "./Navbar";
 import BookCard from "./BookCard";
 import BookDonationPage from "./DonatePage";
 import Footer from "./Footer";
-import Reviews from "./Reviews"
-import ImageGallery from "./Imagegallery"
+import Reviews from "./Reviews";
+import ImageGallery from "./Imagegallery";
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
 
 const App = () => {
   const [booksByGenre, setBooksByGenre] = useState({});
+  const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState(null);
   const [token, setToken] = useState(sessionStorage.getItem("token"));
   const [expandedBook, setExpandedBook] = useState(null);
@@ -23,9 +26,8 @@ const App = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get("https://books-api-lz0r.onrender.com/books");
+        const response = await axios.get("http://localhost:8000/books");
         const publishers = response.data;
-
         // Flatten the books array from all publishers and include publication and publisher details in each book object
         const books = publishers.reduce((acc, publisher) => {
           if (
@@ -35,6 +37,7 @@ const App = () => {
             console.warn(
               `Publisher ${publisher.publisherName} has no publications or publications is not an array`
             );
+            setLoading(false);
             return acc;
           }
 
@@ -83,7 +86,7 @@ const App = () => {
       if (!token) return;
 
       try {
-        const response = await axios.get("https://books-api-lz0r.onrender.com/user/token", {
+        const response = await axios.get("http://localhost:8000/user/token", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const { userId } = response.data;
@@ -119,6 +122,61 @@ const App = () => {
     }
   };
 
+  const driverObj = driver({
+    allowClose: false,
+    showProgress: true,
+    popoverClass: 'driverjs-theme',
+    steps: [
+      {
+        element: "#home",
+        popover: {
+          title: "Home Page",
+        },
+      },
+      {
+        element: "#wishlist",
+        popover: {
+          title: "Your WishList Items",
+          description: "You Can able To see Only When you Login",
+        },
+      },
+      {
+        element: "#orders",
+        popover: {
+          title: "Your Orders",
+          description: "You Can able To see Only When you Login",
+        }
+      },
+      {
+        element: "#Search",
+        popover: {
+          title: "Search Bar",
+          description: "You Can Search from Here by Book name , Author",
+        },
+      },
+      {
+        element: "#wishlistBtn",
+        popover: {
+          title:"Add To Wishlist",
+          description:"You Can add Elements into your wishlist from here"
+        }
+      },
+      {
+        element: "#BuyBtn",
+        popover: {
+          title:"Buy Books",
+          description:"You Can Buy Books from here"
+        }
+      },
+      {
+        popover: {
+          title: "Welcome To The Book Vault",
+          description: "Enjoy Shopping Books ❤️",
+        },
+      },
+    ],
+  });
+  driverObj.drive();
   const slides = [
     {
       image: "https://wallpaperaccess.com/full/464334.jpg",
@@ -145,6 +203,7 @@ const App = () => {
       link: "/offers",
     },
   ];
+
   return (
     <>
       <Navbar />
@@ -154,21 +213,30 @@ const App = () => {
         <div className="container mx-auto px-4 py-8">
           <div className="relative mb-8">
             <div className="w-1/2 mx-auto mt-8 mb-8">
-            <div className="flex items-center justify-center z-50">
-      <motion.h1
-        initial={{ y: -100, scale: 0.8, opacity: 0 }}
-        animate={{ y: 0, scale: 1, opacity: 1 }}
-        transition={{ delay: 0.2, duration: 0.5, type: "spring", stiffness: 120 }}
-        style={{ color: "#bd9f67", fontFamily: "Dancing Script, cursive" }}
-        className="text-8xl font-extrabold text-gray-900 mb-8 text-center"
-      >
-        The Book Vault
-      </motion.h1>
-    </div>
+              <div className="flex items-center justify-center z-50">
+                <motion.h1
+                  initial={{ y: -100, scale: 0.8, opacity: 0 }}
+                  animate={{ y: 0, scale: 1, opacity: 1 }}
+                  transition={{
+                    delay: 0.2,
+                    duration: 0.5,
+                    type: "spring",
+                    stiffness: 120,
+                  }}
+                  style={{
+                    color: "#bd9f67",
+                    fontFamily: "Dancing Script, cursive",
+                  }}
+                  className="text-8xl font-extrabold text-gray-900 mb-8 text-center"
+                >
+                  The Book Vault
+                </motion.h1>
+              </div>
 
               <div className="flex items-center">
                 <input
                   type="text"
+                  id="Search"
                   value={searchQuery}
                   onChange={handleSearch}
                   placeholder="Search here... by book name or author"
@@ -307,18 +375,23 @@ const App = () => {
           )}
         </div>
       </div>
-     <Reviews/>
-     <motion.h1
+      <Reviews />
+      <motion.h1
         initial={{ y: -100, scale: 0.8, opacity: 0 }}
         animate={{ y: 0, scale: 1, opacity: 1 }}
-        transition={{ delay: 0.2, duration: 0.5, type: "spring", stiffness: 120 }}
+        transition={{
+          delay: 0.2,
+          duration: 0.5,
+          type: "spring",
+          stiffness: 120,
+        }}
         style={{ color: "#bd9f67", fontFamily: "Dancing Script, cursive" }}
         className="text-8xl font-extrabold text-gray-900 mb-8 text-center"
       >
         Our Authors Gallery
       </motion.h1>
-     <ImageGallery/>
-<BookDonationPage/>
+      <ImageGallery />
+      <BookDonationPage />
       <Footer />
     </>
   );
