@@ -77,6 +77,7 @@ const App = () => {
 
         setBooksByGenre(groupedBooks);
         setFilteredBooks(books); // Set filtered books to all books initially
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching books:", error);
       }
@@ -103,7 +104,13 @@ const App = () => {
   const handleExpand = (bookId) => {
     setExpandedBook(expandedBook === bookId ? null : bookId);
   };
-
+if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="loader animate-bounce"></div>
+      </div>
+    );
+  }
   const handleSearch = (event) => {
     const query = event.target.value.toLowerCase();
     setSearchQuery(query);
