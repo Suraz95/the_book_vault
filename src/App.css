@@ -1,9 +1,6 @@
 /* Modal styles */
 /* index.css or App.css */
-body {
-  cursor: none;
-  background-color:#ffffff8c
-}
+
 
 .modal {
     position: absolute;
