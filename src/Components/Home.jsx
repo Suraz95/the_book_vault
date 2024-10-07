@@ -129,61 +129,61 @@ if (loading) {
     }
   };
 
-  const driverObj = driver({
-    allowClose: false,
-    showProgress: true,
-    popoverClass: 'driverjs-theme',
-    steps: [
-      {
-        element: "#home",
-        popover: {
-          title: "Home Page",
-        },
-      },
-      {
-        element: "#wishlist",
-        popover: {
-          title: "Your WishList Items",
-          description: "You Can able To see Only When you Login",
-        },
-      },
-      {
-        element: "#orders",
-        popover: {
-          title: "Your Orders",
-          description: "You Can able To see Only When you Login",
-        }
-      },
-      {
-        element: "#Search",
-        popover: {
-          title: "Search Bar",
-          description: "You Can Search from Here by Book name , Author",
-        },
-      },
-      {
-        element: "#wishlistBtn",
-        popover: {
-          title:"Add To Wishlist",
-          description:"You Can add Elements into your wishlist from here"
-        }
-      },
-      {
-        element: "#BuyBtn",
-        popover: {
-          title:"Buy Books",
-          description:"You Can Buy Books from here"
-        }
-      },
-      {
-        popover: {
-          title: "Welcome To The Book Vault",
-          description: "Enjoy Shopping Books ❤️",
-        },
-      },
-    ],
-  });
-  driverObj.drive();
+  // const driverObj = driver({
+  //   allowClose: false,
+  //   showProgress: true,
+  //   popoverClass: 'driverjs-theme',
+  //   steps: [
+  //     {
+  //       element: "#home",
+  //       popover: {
+  //         title: "Home Page",
+  //       },
+  //     },
+  //     {
+  //       element: "#wishlist",
+  //       popover: {
+  //         title: "Your WishList Items",
+  //         description: "You Can able To see Only When you Login",
+  //       },
+  //     },
+  //     {
+  //       element: "#orders",
+  //       popover: {
+  //         title: "Your Orders",
+  //         description: "You Can able To see Only When you Login",
+  //       }
+  //     },
+  //     {
+  //       element: "#Search",
+  //       popover: {
+  //         title: "Search Bar",
+  //         description: "You Can Search from Here by Book name , Author",
+  //       },
+  //     },
+  //     {
+  //       element: "#wishlistBtn",
+  //       popover: {
+  //         title:"Add To Wishlist",
+  //         description:"You Can add Elements into your wishlist from here"
+  //       }
+  //     },
+  //     {
+  //       element: "#BuyBtn",
+  //       popover: {
+  //         title:"Buy Books",
+  //         description:"You Can Buy Books from here"
+  //       }
+  //     },
+  //     {
+  //       popover: {
+  //         title: "Welcome To The Book Vault",
+  //         description: "Enjoy Shopping Books ❤️",
+  //       },
+  //     },
+  //   ],
+  // });
+  // driverObj.drive();
   const slides = [
     {
       image: "https://wallpaperaccess.com/full/464334.jpg",
